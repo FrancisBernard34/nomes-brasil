@@ -1,0 +1,46 @@
+.header {
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-alpha-200);
+}
+
+.title {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--foreground);
+  opacity: 0.8;
+}
+
+.nav {
+  margin-top: 1.5rem;
+}
+
+.navLink {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.navLink:hover {
+  background-color: var(--gray-alpha-100);
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 1.5rem 0;
+  }
+  
+  .nav {
+    margin-top: 1rem;
+  }
+  
+  .navLink {
+    font-size: 0.875rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
