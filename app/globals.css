@@ -1,12 +1,32 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --card-background: #ffffff;
+  --chart-grid: rgba(0, 0, 0, 0.1);
+  --chart-tooltip: #ffffff;
+  --chart-tooltip-text: #171717;
+  --hover-background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card-background: #171717;
+  --chart-grid: rgba(255, 255, 255, 0.1);
+  --chart-tooltip: #333333;
+  --chart-tooltip-text: #ffffff;
+  --hover-background: rgba(255, 255, 255, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --card-background: #171717;
+    --chart-grid: rgba(255, 255, 255, 0.1);
+    --chart-tooltip: #333333;
+    --chart-tooltip-text: #ffffff;
+    --hover-background: rgba(255, 255, 255, 0.1);
   }
 }
 

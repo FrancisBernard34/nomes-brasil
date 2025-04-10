@@ -1,7 +1,8 @@
 "use client";
 
-import { Flex, Text, Heading, Card, Box } from "@radix-ui/themes";
+import { Flex, Text, Heading, Card, Box, Tabs } from "@radix-ui/themes";
 import MostCommonNamesChart from "@/components/MostCommonNamesChart";
+import RegionalDistributionChart from "@/components/RegionalDistributionChart";
 import styles from "@/app/page.module.css";
 import { NameFrequencyResponse } from "@/services/ibgeApi";
 
@@ -15,12 +16,12 @@ export default function HomeClient({ mostFrequentNames }: HomeClientProps) {
       <Heading size="7" align="center" mb="5">
         Descubra Curiosidades sobre os Nomes no Brasil
       </Heading>
-      
+
       <Text as="p" size="4" align="center" mb="6">
         Explore estatísticas e curiosidades sobre os nomes mais populares do Brasil,
         com base nos dados do Censo do IBGE.
       </Text>
-      
+
       <Flex direction="column" gap="6">
         <Card>
           <Flex direction="column" gap="3" p="4">
@@ -31,7 +32,7 @@ export default function HomeClient({ mostFrequentNames }: HomeClientProps) {
             </Text>
           </Flex>
         </Card>
-        
+
         <Card>
           <Flex direction="column" gap="3" p="4">
             <Heading size="5">Curiosidade</Heading>
@@ -41,14 +42,31 @@ export default function HomeClient({ mostFrequentNames }: HomeClientProps) {
             </Text>
           </Flex>
         </Card>
-        
+
         <Box mt="4">
-          <MostCommonNamesChart 
-            data={mostFrequentNames.res} 
-            title="Os 10 Nomes Mais Comuns no Brasil" 
-          />
+          <Tabs.Root defaultValue="ranking">
+            <Tabs.List>
+              <Tabs.Trigger value="ranking">Ranking Nacional</Tabs.Trigger>
+              <Tabs.Trigger value="regional">Distribuição Regional</Tabs.Trigger>
+            </Tabs.List>
+
+            <Tabs.Content value="ranking">
+              <Box mt="3">
+                <MostCommonNamesChart
+                  data={mostFrequentNames.res}
+                  title="Os 10 Nomes Mais Comuns no Brasil"
+                />
+              </Box>
+            </Tabs.Content>
+
+            <Tabs.Content value="regional">
+              <Box mt="3">
+                <RegionalDistributionChart />
+              </Box>
+            </Tabs.Content>
+          </Tabs.Root>
         </Box>
-        
+
         <Card>
           <Flex direction="column" gap="3" p="4">
             <Heading size="5">Tendências de Nomes</Heading>

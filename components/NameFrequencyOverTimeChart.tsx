@@ -49,7 +49,7 @@ export default function NameFrequencyOverTimeChart({ data, name }: NameFrequency
                 bottom: 70,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
               <XAxis
                 dataKey="periodo"
                 angle={-45}

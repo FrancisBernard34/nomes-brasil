@@ -39,7 +39,7 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
                 bottom: 70,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
               <XAxis
                 dataKey="nome"
                 angle={-45}
@@ -54,7 +54,7 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
                 formatter={(value) => [formatNumber(value as number), "Frequência"]}
                 labelFormatter={(label) => `Nome: ${label}`}
               />
-              <Bar dataKey="frequencia" fill="#8884d8" />
+              <Bar dataKey="frequencia" fill="#8884d8" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
