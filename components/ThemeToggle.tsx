@@ -12,7 +12,7 @@ export default function ThemeToggle() {
     // Check if localStorage is available (client-side)
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-      
+
       if (savedTheme) {
         setTheme(savedTheme);
       } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -26,6 +26,13 @@ export default function ThemeToggle() {
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme);
       localStorage.setItem("theme", theme);
+
+      // Dispatch a storage event to notify other components
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'theme',
+        newValue: theme,
+        storageArea: localStorage
+      }));
     }
   }, [theme]);
 
@@ -34,8 +41,8 @@ export default function ThemeToggle() {
   };
 
   return (
-    <Button 
-      variant="ghost" 
+    <Button
+      variant="ghost"
       onClick={toggleTheme}
       className={styles.themeToggle}
       aria-label={`Alternar para tema ${theme === "light" ? "escuro" : "claro"}`}

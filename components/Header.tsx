@@ -14,7 +14,7 @@ export default function Header() {
           Estatísticas e curiosidades sobre os nomes brasileiros
         </Text>
       </Flex>
-      <Flex justify="between" align="center" width="100%">
+      <Flex justify="center" align="center" width="100%" mb="4">
         <nav className={styles.nav}>
           <Flex gap="4" justify="center">
             <Link href="/" className={styles.navLink}>
@@ -31,6 +31,8 @@ export default function Header() {
             </Link>
           </Flex>
         </nav>
+      </Flex>
+      <Flex justify="end" width="100%">
         <ThemeToggle />
       </Flex>
     </header>
