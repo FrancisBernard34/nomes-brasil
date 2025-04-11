@@ -1,4 +1,59 @@
 .themeToggle {
-  border-radius: 50%;
-  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.themeToggle:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.themeIcon {
+  user-select: none;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-normal);
+}
+
+.themeToggle:hover .themeIcon {
+  transform: rotate(12deg);
+}
+
+[data-theme="dark"] .themeToggle {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .themeToggle:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Switch wrapper styles */
+.switchWrapper {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make the Radix UI Switch more clickable */
+.switchWrapper :global(.rt-SwitchRoot) {
+  cursor: pointer;
+  min-width: 36px;
+  min-height: 20px;
+}
+
+.switchWrapper :global(.rt-SwitchThumb) {
+  cursor: pointer;
 }

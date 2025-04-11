@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Text, Switch } from "@radix-ui/themes";
+import { Switch } from "@radix-ui/themes";
 import styles from "./ThemeToggle.module.css";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -8,15 +8,19 @@ export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Flex gap="1" align="center" className={styles.themeToggle}>
-      <Text>{theme === "light" ? "☀️" : "🌙"}</Text>
-      <Switch
-        checked={theme === "dark"}
-        onClick={toggleTheme}
-        aria-label={`Alternar para tema ${
-          theme === "light" ? "escuro" : "claro"
-        }`}
-      />
-    </Flex>
+    <div className={styles.themeToggle} onClick={toggleTheme}>
+      <div className={styles.themeIcon}>{theme === "light" ? "☀️" : "🌙"}</div>
+      <div className={styles.switchWrapper}>
+        <Switch
+          size="2"
+          radius="full"
+          color="blue"
+          checked={theme === "dark"}
+          aria-label={`Alternar para tema ${
+            theme === "light" ? "escuro" : "claro"
+          }`}
+        />
+      </div>
+    </div>
   );
 }

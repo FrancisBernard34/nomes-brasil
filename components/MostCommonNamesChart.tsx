@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Cell } from 'recharts';
 import { Flex, Text, Card } from '@radix-ui/themes';
 import { NameFrequency } from '@/services/ibgeApi';
 import styles from './Charts.module.css';
@@ -22,10 +22,50 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
+  // Custom colors for bars
+  const COLORS = [
+    'var(--chart-colors-1)',
+    'var(--chart-colors-2)',
+    'var(--chart-colors-3)',
+    'var(--chart-colors-4)',
+    'var(--chart-colors-5)',
+    'var(--chart-colors-6)',
+  ];
+
+  // Custom tooltip styles
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{
+          backgroundColor: 'var(--chart-tooltip)',
+          padding: '10px 14px',
+          border: '1px solid var(--card-border)',
+          borderRadius: 'var(--radius-md)',
+          boxShadow: 'var(--card-shadow)',
+        }}>
+          <p style={{
+            fontWeight: 'bold',
+            marginBottom: '5px',
+            color: 'var(--chart-tooltip-text)'
+          }}>
+            Nome: {label}
+          </p>
+          <p style={{
+            color: payload[0].color,
+            margin: 0
+          }}>
+            Frequência: {formatNumber(payload[0].value)}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <Card className={styles.chartCard}>
       <Flex direction="column" gap="3">
-        <Text as="h3" size="5" weight="bold" className={styles.chartTitle}>
+        <Text size="5" weight="bold" className={styles.chartTitle}>
           {title}
         </Text>
         <div className={styles.chartContainer}>
@@ -38,6 +78,7 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
                 left: 20,
                 bottom: 70,
               }}
+              barSize={36}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
               <XAxis
@@ -45,16 +86,29 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
                 angle={-45}
                 textAnchor="end"
                 height={70}
+                tick={{ fill: 'var(--foreground)' }}
+                axisLine={{ stroke: 'var(--chart-grid)' }}
               />
               <YAxis
                 tickFormatter={formatNumber}
                 width={80}
+                tick={{ fill: 'var(--foreground)' }}
+                axisLine={{ stroke: 'var(--chart-grid)' }}
               />
-              <RechartsTooltip
-                formatter={(value) => [formatNumber(value as number), "Frequência"]}
-                labelFormatter={(label) => `Nome: ${label}`}
-              />
-              <Bar dataKey="frequencia" fill="#8884d8" radius={[4, 4, 0, 0]} />
+              <RechartsTooltip content={<CustomTooltip />} />
+              <Bar
+                dataKey="frequencia"
+                radius={[6, 6, 0, 0]}
+                animationDuration={1500}
+                animationEasing="ease-out"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>

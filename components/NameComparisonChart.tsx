@@ -134,16 +134,9 @@ export default function NameComparisonChart() {
           Comparação de Nomes ao Longo do Tempo
         </Text>
 
-        <Flex gap="2" align="center">
+        <div className={styles.chartControls}>
           <TextField.Root
-            size="2"
-            style={{
-              flexGrow: 1,
-              width: "100%",
-              border: "none",
-              outline: "none",
-              background: "transparent",
-            }}
+            size="3"
             placeholder="Digite um nome para adicionar à comparação"
             value={nameInput}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,11 +148,64 @@ export default function NameComparisonChart() {
                 addName();
               }
             }}
-          ></TextField.Root>
-          <Button onClick={addName} disabled={loading}>
-            {loading ? "Adicionando..." : "Adicionar"}
+            style={{
+              flexGrow: 1,
+              width: "100%",
+              padding: "8px 12px",
+              border: "none",
+              outline: "none",
+              background: "transparent",
+              fontSize: "16px",
+              color: "var(--foreground)",
+            }}
+          >
+            <TextField.Slot>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </TextField.Slot>
+          </TextField.Root>
+          <Button size="3" onClick={addName} disabled={loading} variant="solid">
+            {loading ? (
+              <>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{
+                    animation: "spin 1s linear infinite",
+                    marginRight: "8px",
+                  }}
+                >
+                  <path
+                    d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z"
+                    fill="currentColor"
+                    opacity="0.25"
+                  />
+                  <path
+                    d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Adicionando...
+              </>
+            ) : (
+              <>Adicionar</>
+            )}
           </Button>
-        </Flex>
+        </div>
 
         {error && (
           <Text color="red" size="2">
@@ -218,15 +264,40 @@ export default function NameComparisonChart() {
                   angle={-45}
                   textAnchor="end"
                   height={70}
+                  tick={{ fill: "var(--foreground)" }}
+                  axisLine={{ stroke: "var(--chart-grid)" }}
                 />
-                <YAxis tickFormatter={formatNumber} width={80} />
+                <YAxis
+                  tickFormatter={formatNumber}
+                  width={80}
+                  tick={{ fill: "var(--foreground)" }}
+                  axisLine={{ stroke: "var(--chart-grid)" }}
+                />
                 <Tooltip
                   formatter={(value) => [
                     formatNumber(value as number),
                     "Frequência",
                   ]}
+                  contentStyle={{
+                    backgroundColor: "var(--chart-tooltip)",
+                    border: "1px solid var(--card-border)",
+                    borderRadius: "var(--radius-md)",
+                    boxShadow: "var(--card-shadow)",
+                    color: "var(--chart-tooltip-text)",
+                  }}
+                  itemStyle={{ padding: "4px 0" }}
+                  labelStyle={{ fontWeight: "bold", marginBottom: "5px" }}
                 />
-                <Legend />
+                <Legend
+                  wrapperStyle={{ paddingTop: "20px" }}
+                  formatter={(value) => (
+                    <span
+                      style={{ color: "var(--foreground)", fontWeight: "bold" }}
+                    >
+                      {value}
+                    </span>
+                  )}
+                />
                 {names.map((name, index) => (
                   <Line
                     key={name}
@@ -234,27 +305,30 @@ export default function NameComparisonChart() {
                     dataKey={name}
                     name={name}
                     stroke={COLORS[index % COLORS.length]}
-                    activeDot={{ r: 8 }}
+                    strokeWidth={3}
+                    dot={{ r: 4, strokeWidth: 2 }}
+                    activeDot={{ r: 8, strokeWidth: 0 }}
+                    animationDuration={1500}
+                    animationEasing="ease-out"
                   />
                 ))}
               </LineChart>
             </ResponsiveContainer>
           </div>
         ) : (
-          <Flex
-            direction="column"
-            align="center"
-            justify="center"
-            style={{
-              height: "200px",
-              backgroundColor: "var(--gray-alpha-100)",
-              borderRadius: "8px",
-            }}
-          >
+          <div className={styles.emptyState}>
+            <div className={styles.emptyStateIcon}>📊</div>
             <Text size="3" style={{ opacity: 0.7 }}>
               Adicione nomes para visualizar a comparação
             </Text>
-          </Flex>
+            <Text
+              size="2"
+              style={{ opacity: 0.5, maxWidth: "400px", textAlign: "center" }}
+            >
+              Você pode adicionar até 6 nomes diferentes para comparar suas
+              frequências ao longo do tempo
+            </Text>
+          </div>
         )}
 
         {names.length > 0 && (
