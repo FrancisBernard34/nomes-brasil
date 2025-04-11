@@ -29,7 +29,7 @@ export default function SearchForm() {
           Nome
         </Text>
         <TextField.Root size="3">
-          <TextField.Input
+          <TextField.Root
             id="name-input"
             placeholder="Digite um nome (ex: Maria, José, Ana...)"
             value={name}
