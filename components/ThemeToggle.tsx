@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@radix-ui/themes";
+import { Switch, Flex, Text } from "@radix-ui/themes";
 import styles from "./ThemeToggle.module.css";
 
 export default function ThemeToggle() {
@@ -11,11 +11,17 @@ export default function ThemeToggle() {
   useEffect(() => {
     // Check if localStorage is available (client-side)
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+      const savedTheme = localStorage.getItem("theme") as
+        | "light"
+        | "dark"
+        | null;
 
       if (savedTheme) {
         setTheme(savedTheme);
-      } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      } else if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
         setTheme("dark");
       }
     }
@@ -28,11 +34,13 @@ export default function ThemeToggle() {
       localStorage.setItem("theme", theme);
 
       // Dispatch a storage event to notify other components
-      window.dispatchEvent(new StorageEvent('storage', {
-        key: 'theme',
-        newValue: theme,
-        storageArea: localStorage
-      }));
+      window.dispatchEvent(
+        new StorageEvent("storage", {
+          key: "theme",
+          newValue: theme,
+          storageArea: localStorage,
+        })
+      );
     }
   }, [theme]);
 
@@ -41,13 +49,14 @@ export default function ThemeToggle() {
   };
 
   return (
-    <Button
-      variant="ghost"
-      onClick={toggleTheme}
-      className={styles.themeToggle}
-      aria-label={`Alternar para tema ${theme === "light" ? "escuro" : "claro"}`}
-    >
-      {theme === "light" ? "🌙" : "☀️"}
-    </Button>
+    <Flex gap="1" align="center" className={styles.themeToggle}>
+      <Text>{theme === "light" ? "☀️" : "🌙"}</Text>
+      <Switch
+        onClick={toggleTheme}
+        aria-label={`Alternar para tema ${
+          theme === "light" ? "escuro" : "claro"
+        }`}
+      />
+    </Flex>
   );
 }
