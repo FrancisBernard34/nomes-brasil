@@ -12,7 +12,11 @@ interface SearchResultsClientProps {
   decodedName: string;
 }
 
-export default function SearchResultsClient({ nameDetails, error, decodedName }: SearchResultsClientProps) {
+export default function SearchResultsClient({
+  nameDetails,
+  error,
+  decodedName,
+}: SearchResultsClientProps) {
   // Calculate total frequency
   const totalFrequency = nameDetails
     ? nameDetails.res.reduce((sum, item) => sum + item.frequencia, 0)
@@ -28,7 +32,7 @@ export default function SearchResultsClient({ nameDetails, error, decodedName }:
       <Heading size="7" align="center" mb="5">
         Resultados para: {decodedName.toUpperCase()}
       </Heading>
-      
+
       {error ? (
         <Card>
           <Flex direction="column" gap="3" p="4" align="center">
@@ -46,37 +50,42 @@ export default function SearchResultsClient({ nameDetails, error, decodedName }:
             <Flex direction="column" gap="3" p="4">
               <Heading size="5">Estatísticas Gerais</Heading>
               <Text as="p">
-                O nome <strong>{decodedName.toUpperCase()}</strong> aparece {formatNumber(totalFrequency)} vezes 
-                nos registros do IBGE no Brasil.
+                O nome <strong>{decodedName.toUpperCase()}</strong> aparece{" "}
+                {formatNumber(totalFrequency)} vezes nos registros do IBGE no
+                Brasil.
               </Text>
               {nameDetails?.sexo && (
                 <Text as="p">
-                  Gênero predominante: <strong>{nameDetails.sexo === "M" ? "Masculino" : "Feminino"}</strong>
+                  Gênero predominante:{" "}
+                  <strong>
+                    {nameDetails.sexo === "M" ? "Masculino" : "Feminino"}
+                  </strong>
                 </Text>
               )}
             </Flex>
           </Card>
-          
+
           {nameDetails && (
             <Box mt="4">
-              <NameFrequencyOverTimeChart 
-                data={nameDetails.res} 
-                name={decodedName} 
+              <NameFrequencyOverTimeChart
+                data={nameDetails.res}
+                name={decodedName}
               />
             </Box>
           )}
-          
+
           <Card>
             <Flex direction="column" gap="3" p="4">
               <Heading size="5">Interpretação</Heading>
               <Text as="p">
-                O gráfico acima mostra como a popularidade do nome {decodedName.toUpperCase()} 
-                variou ao longo das décadas no Brasil. Cada barra representa o número de pessoas 
+                O gráfico acima mostra como a popularidade do nome{" "}
+                <strong>{decodedName.toUpperCase()}</strong> variou ao longo das
+                décadas no Brasil. Cada barra representa o número de pessoas
                 registradas com esse nome em um determinado período.
               </Text>
             </Flex>
           </Card>
-          
+
           <Flex justify="center" mt="4">
             <Link href="/buscar">
               <Text color="blue">Realizar nova busca</Text>

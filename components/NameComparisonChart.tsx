@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
+import { useState } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import { Flex, Text, Card, Button, TextField } from '@radix-ui/themes';
 import { getNameDetails, NameDetailResponse } from '@/services/ibgeApi';
 import styles from './Charts.module.css';
@@ -193,7 +193,7 @@ export default function NameComparisonChart() {
                   tickFormatter={formatNumber}
                   width={80}
                 />
-                <RechartsTooltip
+                <Tooltip
                   formatter={(value) => [formatNumber(value as number), "Frequência"]}
                 />
                 <Legend />

@@ -17,8 +17,7 @@ export default function NameFrequencyOverTimeChart({ data, name }: NameFrequency
       .replace('[', '')
       .replace(']', '')
       .replace(',', '-')
-      .replace('[', 'Antes de ')
-      .replace('\[', 'Após ');
+      .replace('[', '')
   };
 
   // Prepare data for the chart

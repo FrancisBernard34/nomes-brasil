@@ -7,22 +7,22 @@ export default function SearchPage() {
   return (
     <div className={styles.page}>
       <Header />
-      
+
       <main className={styles.main}>
         <Heading size="7" align="center" mb="5">
           Buscar Nome
         </Heading>
-        
+
         <Text as="p" size="4" align="center" mb="6">
           Digite um nome para descobrir sua frequência e evolução ao longo do tempo no Brasil.
         </Text>
-        
+
         <Card className={styles.searchCard}>
           <Flex direction="column" gap="4" p="4">
             <SearchForm />
           </Flex>
         </Card>
-        
+
         <Flex direction="column" gap="6" mt="6">
           <Card>
             <Flex direction="column" gap="3" p="4">
@@ -34,13 +34,23 @@ export default function SearchPage() {
               </Text>
             </Flex>
           </Card>
-          
+
           <Card>
             <Flex direction="column" gap="3" p="4">
               <Heading size="5">Dica</Heading>
               <Text as="p">
                 Experimente buscar por nomes populares como Maria, José, Ana ou João,
                 ou tente nomes menos comuns para ver como sua frequência varia ao longo do tempo.
+              </Text>
+            </Flex>
+          </Card>
+
+          <Card>
+            <Flex direction="column" gap="3" p="4">
+              <Heading size="5">Atenção</Heading>
+              <Text as="p">
+                Não é possível buscar por nomes compostos como Maria Luiza ou José Antonio.
+                Por favor, busque cada nome separadamente.
               </Text>
             </Flex>
           </Card>

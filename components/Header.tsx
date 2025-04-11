@@ -23,7 +23,7 @@ export default function Header() {
             <Link href="/buscar" className={styles.navLink}>
               Buscar Nome
             </Link>
-            <Link href="/comparar" className={styles.navLink}>
+            <Link href="/comparar-grafico" className={styles.navLink}>
               Comparar
             </Link>
             <Link href="/curiosidades" className={styles.navLink}>

@@ -25,8 +25,7 @@ async function getData(name: string) {
 }
 
 export default async function SearchResultsPage({ params }: SearchResultsPageProps) {
-  // `params` should be awaited before using its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
-  const decodedName = decodeURIComponent(await params.name);
+  const decodedName = decodeURIComponent(params.name);
   const { nameDetails, error } = await getData(decodedName);
 
   return (

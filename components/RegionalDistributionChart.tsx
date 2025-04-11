@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Flex, Text, Card, Button, TextField, Select } from '@radix-ui/themes';
 import { getNameRegionalDistribution, NameDetailResponse } from '@/services/ibgeApi';
 import { regions, Region, State } from '@/services/regionsData';
@@ -95,8 +95,8 @@ export default function RegionalDistributionChart() {
             <Text as="label" size="2" weight="bold" htmlFor="region-select">
               Região
             </Text>
-            <Select.Root 
-              value={selectedRegion.id} 
+            <Select.Root
+              value={selectedRegion.id}
               onValueChange={(value) => {
                 const region = regions.find(r => r.id === value);
                 if (region) {
@@ -141,18 +141,18 @@ export default function RegionalDistributionChart() {
               >
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
                 <XAxis type="number" tickFormatter={formatNumber} />
-                <YAxis 
-                  type="category" 
-                  dataKey="state" 
+                <YAxis
+                  type="category"
+                  dataKey="state"
                   width={100}
                 />
-                <RechartsTooltip 
+                <Tooltip
                   formatter={(value) => [formatNumber(value as number), "Frequência"]}
                   labelFormatter={(label) => `Estado: ${label}`}
                 />
-                <Bar 
-                  dataKey="frequency" 
-                  fill="#8884d8" 
+                <Bar
+                  dataKey="frequency"
+                  fill="#8884d8"
                   name={`Frequência de ${name.toUpperCase()}`}
                   radius={[0, 4, 4, 0]}
                 />
@@ -160,15 +160,15 @@ export default function RegionalDistributionChart() {
             </ResponsiveContainer>
           </div>
         ) : (
-          <Flex 
-            direction="column" 
-            align="center" 
-            justify="center" 
+          <Flex
+            direction="column"
+            align="center"
+            justify="center"
             style={{ height: '200px', backgroundColor: 'var(--gray-alpha-100)', borderRadius: '8px' }}
           >
             <Text size="3" style={{ opacity: 0.7 }}>
-              {loading 
-                ? "Carregando dados..." 
+              {loading
+                ? "Carregando dados..."
                 : "Digite um nome e selecione uma região para visualizar a distribuição"}
             </Text>
           </Flex>
