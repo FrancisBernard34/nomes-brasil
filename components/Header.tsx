@@ -32,7 +32,7 @@ export default function Header() {
           </Flex>
         </nav>
       </Flex>
-      <Flex justify="end" width="100%">
+      <Flex justify="center" width="100%">
         <ThemeToggle />
       </Flex>
     </header>

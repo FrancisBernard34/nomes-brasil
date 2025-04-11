@@ -1,16 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Flex, Text, Card, Button, TextField, Select } from '@radix-ui/themes';
-import { getNameRegionalDistribution, NameDetailResponse } from '@/services/ibgeApi';
-import { regions, Region, State } from '@/services/regionsData';
-import styles from './Charts.module.css';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { Flex, Text, Card, Button, TextField, Select } from "@radix-ui/themes";
+import {
+  getNameRegionalDistribution,
+  NameDetailResponse,
+} from "@/services/ibgeApi";
+import { regions, Region, State } from "@/services/regionsData";
+import styles from "./Charts.module.css";
 
 export default function RegionalDistributionChart() {
   const [name, setName] = useState("");
   const [selectedRegion, setSelectedRegion] = useState<Region>(regions[0]);
-  const [distributionData, setDistributionData] = useState<{[key: string]: NameDetailResponse} | null>(null);
+  const [distributionData, setDistributionData] = useState<{
+    [key: string]: NameDetailResponse;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -29,7 +42,7 @@ export default function RegionalDistributionChart() {
     setError("");
 
     try {
-      const stateCodes = selectedRegion.states.map(state => state.code);
+      const stateCodes = selectedRegion.states.map((state) => state.code);
       const data = await getNameRegionalDistribution(name.trim(), stateCodes);
       setDistributionData(data);
     } catch (err) {
@@ -48,15 +61,17 @@ export default function RegionalDistributionChart() {
   const prepareChartData = () => {
     if (!distributionData) return [];
 
-    return selectedRegion.states.map(state => {
-      const stateData = distributionData[state.code];
-      const frequency = stateData ? calculateTotalFrequency(stateData) : 0;
+    return selectedRegion.states
+      .map((state) => {
+        const stateData = distributionData[state.code];
+        const frequency = stateData ? calculateTotalFrequency(stateData) : 0;
 
-      return {
-        state: state.name,
-        frequency,
-      };
-    }).sort((a, b) => b.frequency - a.frequency); // Sort by frequency in descending order
+        return {
+          state: state.name,
+          frequency,
+        };
+      })
+      .sort((a, b) => b.frequency - a.frequency); // Sort by frequency in descending order
   };
 
   const chartData = prepareChartData();
@@ -73,32 +88,31 @@ export default function RegionalDistributionChart() {
             <Text as="label" size="2" weight="bold" htmlFor="name-input">
               Nome
             </Text>
-            <TextField.Root size="2">
-              <TextField.Input
-                id="name-input"
-                placeholder="Digite um nome (ex: Maria, José, Ana...)"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setError("");
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    fetchDistribution();
-                  }
-                }}
-              />
-            </TextField.Root>
+            <TextField.Root
+              size="2"
+              id="name-input"
+              placeholder="Digite um nome (ex: Maria, José, Ana...)"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setError("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchDistribution();
+                }
+              }}
+            ></TextField.Root>
           </Flex>
 
-          <Flex direction="column" gap="1" style={{ width: '150px' }}>
+          <Flex direction="column" gap="1" style={{ width: "150px" }}>
             <Text as="label" size="2" weight="bold" htmlFor="region-select">
               Região
             </Text>
             <Select.Root
               value={selectedRegion.id}
               onValueChange={(value) => {
-                const region = regions.find(r => r.id === value);
+                const region = regions.find((r) => r.id === value);
                 if (region) {
                   setSelectedRegion(region);
                 }
@@ -139,15 +153,17 @@ export default function RegionalDistributionChart() {
                   bottom: 20,
                 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
-                <XAxis type="number" tickFormatter={formatNumber} />
-                <YAxis
-                  type="category"
-                  dataKey="state"
-                  width={100}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="var(--chart-grid)"
                 />
+                <XAxis type="number" tickFormatter={formatNumber} />
+                <YAxis type="category" dataKey="state" width={100} />
                 <Tooltip
-                  formatter={(value) => [formatNumber(value as number), "Frequência"]}
+                  formatter={(value) => [
+                    formatNumber(value as number),
+                    "Frequência",
+                  ]}
                   labelFormatter={(label) => `Estado: ${label}`}
                 />
                 <Bar
@@ -164,7 +180,11 @@ export default function RegionalDistributionChart() {
             direction="column"
             align="center"
             justify="center"
-            style={{ height: '200px', backgroundColor: 'var(--gray-alpha-100)', borderRadius: '8px' }}
+            style={{
+              height: "200px",
+              backgroundColor: "var(--gray-alpha-100)",
+              borderRadius: "8px",
+            }}
           >
             <Text size="3" style={{ opacity: 0.7 }}>
               {loading
@@ -176,7 +196,8 @@ export default function RegionalDistributionChart() {
 
         {chartData.length > 0 && (
           <Text size="2" style={{ opacity: 0.8 }}>
-            O gráfico mostra a frequência do nome {name.toUpperCase()} em cada estado da região {selectedRegion.name}.
+            O gráfico mostra a frequência do nome {name.toUpperCase()} em cada
+            estado da região {selectedRegion.name}.
           </Text>
         )}
       </Flex>

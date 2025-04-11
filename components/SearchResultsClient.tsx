@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Heading, Text, Card, Box } from "@radix-ui/themes";
+import { Flex, Heading, Text, Card, Box, Button } from "@radix-ui/themes";
 import NameFrequencyOverTimeChart from "@/components/NameFrequencyOverTimeChart";
 import Link from "next/link";
 import styles from "@/app/page.module.css";
@@ -32,6 +32,12 @@ export default function SearchResultsClient({
       <Heading size="7" align="center" mb="5">
         Resultados para: {decodedName.toUpperCase()}
       </Heading>
+
+      <Button asChild>
+        <Link href="/buscar">
+          <Text>Realizar nova busca</Text>
+        </Link>
+      </Button>
 
       {error ? (
         <Card>
@@ -85,12 +91,6 @@ export default function SearchResultsClient({
               </Text>
             </Flex>
           </Card>
-
-          <Flex justify="center" mt="4">
-            <Link href="/buscar">
-              <Text color="blue">Realizar nova busca</Text>
-            </Link>
-          </Flex>
         </Flex>
       )}
     </main>

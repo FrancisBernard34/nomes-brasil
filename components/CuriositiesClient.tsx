@@ -35,7 +35,7 @@ export default function CuriositiesClient({ maleNames, femaleNames }: Curiositie
         <Grid columns={{ initial: "1", md: "2" }} gap="4">
           <Card>
             <Flex direction="column" gap="3" p="4">
-              <Heading size="5">Top 5 Nomes Masculinos</Heading>
+              <Heading size="5">Top 20 Nomes Masculinos</Heading>
               <ol className={styles.rankingList}>
                 {maleNames.res.map((name) => (
                   <li key={name.nome}>
@@ -48,7 +48,7 @@ export default function CuriositiesClient({ maleNames, femaleNames }: Curiositie
           
           <Card>
             <Flex direction="column" gap="3" p="4">
-              <Heading size="5">Top 5 Nomes Femininos</Heading>
+              <Heading size="5">Top 20 Nomes Femininos</Heading>
               <ol className={styles.rankingList}>
                 {femaleNames.res.map((name) => (
                   <li key={name.nome}>
