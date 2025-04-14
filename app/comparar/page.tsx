@@ -35,8 +35,8 @@ export default function ComparePage() {
               </Flex>
               <Text as="p">
                 Esta ferramenta permite comparar a frequência de até 6 nomes diferentes ao longo das décadas.
-                Digite um nome no campo acima e clique em "Adicionar" para incluí-lo no gráfico.
-                Você pode remover nomes clicando no "✕" ao lado de cada nome adicionado.
+                Digite um nome no campo acima e clique em &quot;Adicionar&quot; para incluí-lo no gráfico.
+                Você pode remover nomes clicando no &quot;✕&quot; ao lado de cada nome adicionado.
               </Text>
             </Flex>
           </Card>
@@ -49,7 +49,7 @@ export default function ComparePage() {
               </Flex>
               <Text as="p">
                 Compare nomes semelhantes ou variações de um mesmo nome para ver como sua popularidade
-                evoluiu ao longo do tempo. Por exemplo, compare "Carlos" e "Carla", ou "José" e "José Carlos".
+                evoluiu ao longo do tempo. Por exemplo, compare &quot;Carlos&quot; e &quot;Carla&quot;, ou &quot;José&quot; e &quot;José Carlos&quot;.
               </Text>
             </Flex>
           </Card>

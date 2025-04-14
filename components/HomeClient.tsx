@@ -13,7 +13,7 @@ interface HomeClientProps {
 
 export default function HomeClient({ mostFrequentNames }: HomeClientProps) {
   // State to track active tab for potential future enhancements
-  const [_, setActiveTab] = useState("ranking");
+  const setActiveTab = useState("ranking")[1]; // Using array destructuring index to avoid unused variable
 
   return (
     <main className={styles.main}>

@@ -73,7 +73,7 @@ export default function NameComparisonChart() {
         [formattedName]: data,
       });
       setNameInput("");
-    } catch (err) {
+    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setError(`Erro ao buscar dados para o nome ${formattedName}.`);
     } finally {
       setLoading(false);
@@ -109,7 +109,7 @@ export default function NameComparisonChart() {
 
     // Create chart data with all names and periods
     return sortedPeriods.map((period) => {
-      const dataPoint: { [key: string]: any } = {
+      const dataPoint: { [key: string]: string | number } = {
         periodo: formatPeriod(period),
       };
 

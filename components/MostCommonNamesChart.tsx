@@ -33,7 +33,13 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
   ];
 
   // Custom tooltip styles
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  interface TooltipProps {
+    active?: boolean;
+    payload?: Array<{ value: number; color: string }>;
+    label?: string;
+  }
+
+  const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
     if (active && payload && payload.length) {
       return (
         <div style={{

@@ -16,7 +16,7 @@ async function getData(name: string) {
       nameDetails,
       error: null,
     };
-  } catch (error) {
+  } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
     return {
       nameDetails: null,
       error: "Não foi possível encontrar informações para este nome.",

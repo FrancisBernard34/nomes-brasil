@@ -15,7 +15,7 @@ import {
   getNameRegionalDistribution,
   NameDetailResponse,
 } from "@/services/ibgeApi";
-import { regions, Region, State } from "@/services/regionsData";
+import { regions, Region } from "@/services/regionsData";
 import styles from "./Charts.module.css";
 
 export default function RegionalDistributionChart() {
@@ -45,7 +45,7 @@ export default function RegionalDistributionChart() {
       const stateCodes = selectedRegion.states.map((state) => state.code);
       const data = await getNameRegionalDistribution(name.trim(), stateCodes);
       setDistributionData(data);
-    } catch (err) {
+    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setError(`Erro ao buscar dados para o nome ${name}.`);
     } finally {
       setLoading(false);
