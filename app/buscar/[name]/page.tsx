@@ -3,11 +3,7 @@ import Header from "@/components/Header";
 import SearchResultsClient from "@/components/SearchResultsClient";
 import { getNameDetails } from "@/services/ibgeApi";
 
-interface SearchResultsPageProps {
-  params: {
-    name: string;
-  };
-}
+type Params = Promise<{ name: string }>;
 
 async function getData(name: string) {
   try {
@@ -16,7 +12,7 @@ async function getData(name: string) {
       nameDetails,
       error: null,
     };
-  } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
+  } catch (_) {
     return {
       nameDetails: null,
       error: "Não foi possível encontrar informações para este nome.",
@@ -24,8 +20,13 @@ async function getData(name: string) {
   }
 }
 
-export default async function SearchResultsPage({ params }: SearchResultsPageProps) {
-  const decodedName = decodeURIComponent(params.name);
+export default async function SearchResultsPage({
+  params,
+}: {
+  params: Params;
+}) {
+  const { name } = await params;
+  const decodedName = decodeURIComponent(name);
   const { nameDetails, error } = await getData(decodedName);
 
   return (

@@ -17,8 +17,6 @@ export default function SearchForm() {
       setError("Por favor, digite um nome para buscar.");
       return;
     }
-
-    // Redirect to the results page with the name as a query parameter
     router.push(`/buscar/${encodeURIComponent(name.trim())}`);
   };
 

@@ -17,12 +17,10 @@ export default function SearchResultsClient({
   error,
   decodedName,
 }: SearchResultsClientProps) {
-  // Calculate total frequency
   const totalFrequency = nameDetails
     ? nameDetails.res.reduce((sum, item) => sum + item.frequencia, 0)
     : 0;
 
-  // Format large numbers with dots as thousand separators
   const formatNumber = (value: number) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };

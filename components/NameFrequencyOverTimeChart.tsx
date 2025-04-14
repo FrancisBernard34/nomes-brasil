@@ -34,7 +34,7 @@ export default function NameFrequencyOverTimeChart({ data, name }: NameFrequency
   return (
     <Card className={styles.chartCard}>
       <Flex direction="column" gap="3">
-        <Text as="h3" size="5" weight="bold" className={styles.chartTitle}>
+        <Text size="5" weight="bold" className={styles.chartTitle}>
           Frequência do nome {name.toUpperCase()} ao longo do tempo
         </Text>
         <div className={styles.chartContainer}>

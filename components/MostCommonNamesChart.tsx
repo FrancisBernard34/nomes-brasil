@@ -11,18 +11,15 @@ interface MostCommonNamesChartProps {
 }
 
 export default function MostCommonNamesChart({ data, title }: MostCommonNamesChartProps) {
-  // Prepare data for the chart
   const chartData = data.map(item => ({
     nome: item.nome,
     frequencia: item.frequencia,
   }));
 
-  // Format large numbers with dots as thousand separators
   const formatNumber = (value: number) => {
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  // Custom colors for bars
   const COLORS = [
     'var(--chart-colors-1)',
     'var(--chart-colors-2)',
@@ -32,7 +29,6 @@ export default function MostCommonNamesChart({ data, title }: MostCommonNamesCha
     'var(--chart-colors-6)',
   ];
 
-  // Custom tooltip styles
   interface TooltipProps {
     active?: boolean;
     payload?: Array<{ value: number; color: string }>;

@@ -79,7 +79,7 @@ export default function RegionalDistributionChart() {
   return (
     <Card className={styles.chartCard}>
       <Flex direction="column" gap="3">
-        <Text as="h3" size="5" weight="bold" className={styles.chartTitle}>
+        <Text size="5" weight="bold" className={styles.chartTitle}>
           Distribuição Regional de Nomes
         </Text>
 

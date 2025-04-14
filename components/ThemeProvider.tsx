@@ -28,7 +28,6 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ThemeType>("light");
   const [mounted, setMounted] = useState(false);
 
-  // Initialize theme from localStorage or system preference
   useEffect(() => {
     setMounted(true);
 
@@ -43,7 +42,6 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
     }
   }, []);
 
-  // Update document and localStorage when theme changes
   useEffect(() => {
     if (!mounted) return;
 
@@ -57,7 +55,6 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
-  // Provide a default UI during SSR to avoid hydration mismatch
   const contextValue = { theme, toggleTheme };
 
   return (

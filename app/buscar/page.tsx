@@ -6,7 +6,6 @@ import SearchForm from "./SearchForm";
 export default function SearchPage() {
   return (
     <div className={styles.page}>
-      {/* Background decorations */}
       <div className={styles.pageBackground}></div>
       <div className={`${styles.pageDecoration} ${styles.pageDecoration1}`}></div>
       <div className={`${styles.pageDecoration} ${styles.pageDecoration2}`}></div>
